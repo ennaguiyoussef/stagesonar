@@ -1,6 +1,12 @@
 """Routes d'administration."""
 from fastapi import APIRouter
 
+from app.services.pipeline import run_pipeline
+
 router = APIRouter(prefix="/api/admin", tags=["admin"])
 
-# TODO (jour 3) : POST /api/admin/scrape   lancer le pipeline à la main (utile pour la démo)
+
+@router.post("/scrape")
+def scrape():
+    """Lance le pipeline tout de suite, sans attendre le scheduler (utile pour la démo)."""
+    return {"new_offers": run_pipeline()}
