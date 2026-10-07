@@ -19,6 +19,7 @@ def run_pipeline() -> dict[str, int]:
         for scraper in SCRAPERS:
             source = db.query(Source).filter_by(name=scraper.name, is_active=True).first()
             if source is None:
+                logger.warning("Scraper ignoré : aucune source active nommée %r dans la table sources", scraper.name)
                 continue
             run = ScrapeRun(source_id=source.id)  # statut "running" par défaut
             db.add(run)

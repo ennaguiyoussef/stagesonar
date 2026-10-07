@@ -9,21 +9,16 @@ from app.scrapers.base import BaseScraper, ScrapedOffer
 
 
 class StageScraper(BaseScraper):
-    name = "stage.ma"
-    base_url = "https://www.stage.ma"
-    search_url = "https://www.stage.ma/offres-stage"
+    name = "Stage"
+    base_url = "https://www.stage.ma/offres-stage"
 
     def fetch_offers(self) -> List[ScrapedOffer]:
         """
         Récupère les offres de stage depuis Stage.ma.
         """
 
-        response = self.get(self.search_url)
-
-        if response.status_code != 200:
-            return []
-
-        soup = BeautifulSoup(response.text, "html.parser")
+        html = self.get(self.base_url)
+        soup = BeautifulSoup(html, "html.parser")
         offers: List[ScrapedOffer] = []
 
         candidates = soup.select("a.flex.text-lg.capitalize.font-bold")
