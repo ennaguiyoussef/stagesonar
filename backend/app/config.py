@@ -1,9 +1,14 @@
 """Configuration lue depuis les variables d'environnement ou le fichier .env."""
+from pathlib import Path
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+# Le .env est à la racine du dépôt, quel que soit le dossier d'où on lance l'application.
+ENV_FILE = Path(__file__).resolve().parents[2] / ".env"
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+    model_config = SettingsConfigDict(env_file=ENV_FILE, extra="ignore")
 
     database_url: str = "sqlite:///./stagesonar.db"
 
