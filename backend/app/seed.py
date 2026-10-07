@@ -4,7 +4,7 @@ from app.models import Source
 
 SOURCES = [
     {"name": "Jobsquare", "base_url": "https://www.jobsquare.ma/jobs/"},
-    {"name": "Dreamjob", "base_url": "https://www.dreamjob.ma/stage/"},
+    {"name": "Stage", "base_url": "https://www.stage.ma/offres-stage"},
 ]
 
 with SessionLocal() as db:
