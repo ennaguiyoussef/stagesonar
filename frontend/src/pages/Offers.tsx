@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { getOffers, getSources, type OfferPage, type Source } from '../api/client.ts'
+import { CITIES } from '../constants.ts'
 
 const PAGE_SIZE = 20
-const CITIES = ['Agadir', 'Casablanca', 'Fès', 'Kénitra', 'Marrakech', 'Meknès', 'Mohammedia', 'Oujda', 'Rabat', 'Tanger', 'Tétouan']
 const FIELD = 'w-full rounded-md border border-line bg-foam px-3 py-2'
 const BUTTON = 'rounded-md bg-abyss px-4 py-2 text-center font-medium text-foam disabled:opacity-40'
 

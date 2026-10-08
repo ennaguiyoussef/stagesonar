@@ -2,6 +2,7 @@ import { NavLink, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home.tsx'
 import Offers from './pages/Offers.tsx'
 import Subscribe from './pages/Subscribe.tsx'
+import Unsubscribe from './pages/Unsubscribe.tsx'
 
 const LINKS = [
   { to: '/', label: 'Accueil' },
@@ -38,6 +39,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/offers" element={<Offers />} />
           <Route path="/subscribe" element={<Subscribe />} />
+          <Route path="/unsubscribe/:token" element={<Unsubscribe />} />
         </Routes>
       </main>
     </>

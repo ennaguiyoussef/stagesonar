@@ -23,3 +23,17 @@ body {
   outline: 3px solid var(--color-beacon);
   outline-offset: 2px;
 }
+
+/* Balayage du sonar sur la page d'accueil, désactivé si l'utilisateur limite les animations. */
+@media (prefers-reduced-motion: no-preference) {
+  .sonar-sweep {
+    transform-origin: 100px 100px;
+    animation: sonar-sweep 6s linear infinite;
+  }
+}
+
+@keyframes sonar-sweep {
+  to {
+    transform: rotate(360deg);
+  }
+}
