@@ -1,5 +1,3 @@
-# Pour l'instant : uniquement la base PostgreSQL.
-# Les services backend et frontend seront ajoutés au jour 6.
 services:
   db:
     image: postgres:16
@@ -11,6 +9,31 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U stagesonar"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DATABASE_URL: postgresql+psycopg2://stagesonar:stagesonar@db:5432/stagesonar
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
 
 volumes:
   pgdata:
