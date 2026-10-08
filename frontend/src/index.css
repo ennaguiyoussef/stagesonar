@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+/* Couleurs et polices de StageSonar, utilisables comme classes Tailwind :
+   bg-abyss, text-sonar, font-display, etc. */
+@theme {
+  --color-abyss: #0b2540;
+  --color-water: #e8f1f2;
+  --color-foam: #fbfdfd;
+  --color-sonar: #0b6e6c;
+  --color-beacon: #f5a300;
+  --color-slate: #516676;
+  --color-line: #c4d6da;
+  --font-display: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+  --font-sans: "IBM Plex Sans", "Segoe UI", sans-serif;
+}
+
+body {
+  background: var(--color-water);
+  color: var(--color-abyss);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-beacon);
+  outline-offset: 2px;
+}

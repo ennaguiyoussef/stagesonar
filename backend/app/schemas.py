@@ -4,6 +4,16 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, EmailStr, field_validator
 
 
+class SourceOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    name: str
+    base_url: str
+    is_active: bool
+    last_run_at: datetime | None
+
+
 class OfferOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
@@ -14,6 +24,7 @@ class OfferOut(BaseModel):
     url: str
     published_at: datetime | None
     first_seen_at: datetime
+    source: SourceOut
 
 
 class SubscriberCreate(BaseModel):
@@ -30,13 +41,3 @@ class SubscriberCreate(BaseModel):
             raise ValueError("Les mots-clés ne peuvent pas être vides.")
 
         return value
-
-
-class SourceOut(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
-    id: int
-    name: str
-    base_url: str
-    is_active: bool
-    last_run_at: datetime | None
