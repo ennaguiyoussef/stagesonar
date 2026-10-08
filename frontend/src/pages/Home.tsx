@@ -21,7 +21,7 @@ export default function Home() {
 
   return (
     <>
-      <section className="flex items-center justify-between gap-8">
+      <section className="grid items-center gap-8 md:grid-cols-[3fr_2fr]">
         <div>
           <h1 className="max-w-xl font-display text-4xl leading-tight font-bold sm:text-5xl">
             Les nouveaux stages, dès leur publication
@@ -39,7 +39,7 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        <svg viewBox="0 0 200 200" className="hidden w-52 shrink-0 md:block" aria-hidden="true">
+        <svg viewBox="0 0 200 200" className="mx-auto hidden w-full max-w-xs md:block lg:max-w-sm" aria-hidden="true">
           <g fill="none" stroke="var(--color-sonar)" opacity="0.45">
             <circle cx="100" cy="100" r="30" />
             <circle cx="100" cy="100" r="60" />
@@ -61,16 +61,18 @@ export default function Home() {
           <p className="font-display text-2xl font-bold">
             {plural(total, 'offre')} collectée{total > 1 ? 's' : ''} sur {plural(data.sources.length, 'site')}, dont {thisWeek} ces sept derniers jours.
           </p>
-          <ul className="mt-4 divide-y divide-line rounded-md border border-line bg-foam">
+          {/* Une carte par site suivi. */}
+          <ul className="mt-4 grid gap-4 sm:grid-cols-2">
             {data.sources.map((source) => (
-              <li key={source.id} className="flex flex-col gap-1 p-4 sm:flex-row sm:items-baseline sm:justify-between">
+              <li key={source.id} className="rounded-lg border border-line bg-foam p-5 shadow-sm">
                 <a href={source.base_url} target="_blank" rel="noreferrer" className="font-medium underline">
                   {source.name}
                 </a>
-                <span className="text-slate">
-                  {plural(countOf(source), 'offre')},{' '}
-                  {source.last_run_at ? `dernière collecte le ${dateFormat.format(new Date(source.last_run_at))}` : 'pas encore collecté'}
-                </span>
+                <p className="mt-3 font-display text-4xl font-bold">{countOf(source)}</p>
+                <p className="text-slate">offre{countOf(source) > 1 ? 's' : ''} collectée{countOf(source) > 1 ? 's' : ''}</p>
+                <p className="mt-3 text-sm text-slate">
+                  {source.last_run_at ? `Dernière collecte le ${dateFormat.format(new Date(source.last_run_at))}` : 'Pas encore collecté'}
+                </p>
               </li>
             ))}
           </ul>

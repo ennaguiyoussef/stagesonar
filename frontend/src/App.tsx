@@ -14,7 +14,7 @@ export default function App() {
   return (
     <>
       <header className="bg-abyss text-foam">
-        <nav className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-4">
+        <nav className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-4">
           <NavLink to="/" className="font-display text-2xl font-bold">
             StageSonar
           </NavLink>
@@ -34,7 +34,7 @@ export default function App() {
           </ul>
         </nav>
       </header>
-      <main className="mx-auto max-w-4xl px-4 py-8">
+      <main className="mx-auto max-w-7xl px-6 py-8">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/offers" element={<Offers />} />

@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import { getOffers, getSources, type OfferPage, type Source } from '../api/client.ts'
 import { CITIES } from '../constants.ts'
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 18 // multiple de 2 et de 3 : la dernière ligne de la grille est toujours complète
 const FIELD = 'w-full rounded-md border border-line bg-foam px-3 py-2'
 const BUTTON = 'rounded-md bg-abyss px-4 py-2 text-center font-medium text-foam disabled:opacity-40'
 
@@ -116,21 +116,22 @@ export default function Offers() {
           <p className="mt-8 text-slate" aria-live="polite">
             {data.total} offre{data.total > 1 ? 's' : ''}
           </p>
-          <ul className="mt-2 divide-y divide-line rounded-md border border-line bg-foam">
+          {/* Grille de cartes : 1 colonne sur téléphone, 2 sur tablette, 3 sur grand écran. */}
+          <ul className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {data.items.map((offer) => (
-              <li key={offer.id} className="flex flex-col gap-4 p-5 sm:flex-row sm:items-start sm:justify-between">
-                <div>
-                  <h2 className="font-display text-xl leading-snug font-bold">{offer.title}</h2>
-                  <p className="mt-1 font-medium">{offer.company}</p>
-                  <p className="text-slate">{offer.location}</p>
-                  <p className="mt-2 text-sm text-slate">
-                    {isRecent(offer.first_seen_at) && (
-                      <span className="mr-2 rounded bg-beacon px-1.5 py-0.5 font-medium text-abyss">Nouvelle</span>
-                    )}
-                    Détectée sur {offer.source.name} le {dateFormat.format(new Date(offer.first_seen_at))}
-                  </p>
-                </div>
-                <a href={offer.url} target="_blank" rel="noreferrer" className={`${BUTTON} shrink-0`}>
+              <li key={offer.id} className="flex flex-col rounded-lg border border-line bg-foam p-5 shadow-sm hover:shadow-md">
+                <p className="flex items-center justify-between gap-2 text-sm">
+                  <span className="rounded-full bg-water px-2.5 py-0.5 font-medium">{offer.source.name}</span>
+                  {isRecent(offer.first_seen_at) && (
+                    <span className="rounded bg-beacon px-1.5 py-0.5 font-medium text-abyss">Nouvelle</span>
+                  )}
+                </p>
+                <h2 className="mt-3 line-clamp-2 font-display text-lg leading-snug font-bold">{offer.title}</h2>
+                <p className="mt-2 font-medium">{offer.company}</p>
+                <p className="text-slate">{offer.location}</p>
+                {/* mt-auto pousse la date et le bouton en bas : les boutons sont alignés d'une carte à l'autre. */}
+                <p className="mt-auto pt-4 text-sm text-slate">Détectée le {dateFormat.format(new Date(offer.first_seen_at))}</p>
+                <a href={offer.url} target="_blank" rel="noreferrer" className={`${BUTTON} mt-3`}>
                   Voir l'offre
                 </a>
               </li>

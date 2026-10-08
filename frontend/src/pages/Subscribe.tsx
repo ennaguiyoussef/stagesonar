@@ -4,6 +4,11 @@ import { subscribe } from '../api/client.ts'
 import { CITIES, DOMAINS } from '../constants.ts'
 
 const FIELD = 'mt-1 w-full rounded-md border border-line bg-foam px-3 py-2 text-base font-normal'
+const STEPS = [
+  'Choisissez vos domaines et votre ville.',
+  'StageSonar surveille les sites de stages à votre place.',
+  "Vous recevez un e-mail dès qu'une nouvelle offre vous correspond.",
+]
 
 export default function Subscribe() {
   const [email, setEmail] = useState('')
@@ -52,13 +57,26 @@ export default function Subscribe() {
   }
 
   return (
-    <>
-      <h1 className="font-display text-4xl font-bold">S'abonner</h1>
-      <p className="mt-3 max-w-xl text-lg text-slate">
-        Recevez par e-mail les nouvelles offres de stage qui correspondent à votre profil, dès leur publication.
-      </p>
+    // Deux colonnes sur grand écran : la présentation à gauche, le formulaire dans une carte à droite.
+    <div className="grid gap-8 lg:grid-cols-[1fr_2fr]">
+      <div>
+        <h1 className="font-display text-4xl font-bold">S'abonner</h1>
+        <p className="mt-3 text-lg text-slate">
+          Recevez par e-mail les nouvelles offres de stage qui correspondent à votre profil, dès leur publication.
+        </p>
+        <ol className="mt-6 space-y-3">
+          {STEPS.map((step, index) => (
+            <li key={step} className="flex gap-3">
+              <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-abyss text-sm font-medium text-foam">
+                {index + 1}
+              </span>
+              {step}
+            </li>
+          ))}
+        </ol>
+      </div>
 
-      <form className="mt-8 max-w-2xl space-y-7" onSubmit={submit}>
+      <form className="space-y-7 rounded-lg border border-line bg-foam p-6 shadow-sm" onSubmit={submit}>
         <fieldset>
           <legend className="text-sm font-medium">Domaines qui vous intéressent</legend>
           <div className="mt-2 flex flex-wrap gap-2">
@@ -111,6 +129,6 @@ export default function Subscribe() {
         </button>
         <p className="text-sm text-slate">Un lien de désinscription figure dans chaque e-mail.</p>
       </form>
-    </>
+    </div>
   )
 }
