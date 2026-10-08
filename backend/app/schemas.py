@@ -1,7 +1,7 @@
 """Modèles Pydantic : ce que l'API reçoit et renvoie."""
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict, EmailStr
+from pydantic import BaseModel, ConfigDict, EmailStr, field_validator
 
 
 class OfferOut(BaseModel):
@@ -20,6 +20,16 @@ class SubscriberCreate(BaseModel):
     email: EmailStr
     keywords: str
     location: str = ""
+
+    @field_validator("keywords")
+    @classmethod
+    def keywords_must_not_be_empty(cls, value: str) -> str:
+        value = value.strip()
+
+        if not value:
+            raise ValueError("Les mots-clés ne peuvent pas être vides.")
+
+        return value
 
 
 class SourceOut(BaseModel):
