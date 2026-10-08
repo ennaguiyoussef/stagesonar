@@ -9,4 +9,4 @@ router = APIRouter(prefix="/api/admin", tags=["admin"])
 @router.post("/scrape")
 def scrape():
     """Lance le pipeline tout de suite, sans attendre le scheduler (utile pour la démo)."""
-    return {"new_offers": run_pipeline()}
+    return run_pipeline()
