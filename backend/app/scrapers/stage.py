@@ -18,7 +18,7 @@ class StageScraper(BaseScraper):
         """
 
         html = self.get(self.base_url)
-        soup = BeautifulSoup(html, "html.parser")
+        soup = BeautifulSoup(html.text, "html.parser")
         offers: List[ScrapedOffer] = []
 
         candidates = soup.select("a.flex.text-lg.capitalize.font-bold")
